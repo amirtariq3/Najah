@@ -13,7 +13,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/signup', ['as'=>'api.signup', 'uses'=>'Api\UserController@store']);
+Route::post('/login', ['as'=>'api.login', 'uses'=>'Api\UserController@login']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group(['middleware' => 'auth:api'], function(){
+
+    Route::post('/logout', ['as'=>'api.logout', 'uses'=>'Api\Usercontroller@logout']);
+    Route::get('/profile', ['as'=>'api.logout', 'uses'=>'Api\Usercontroller@show']);
+    Route::get('/category', ['as'=>'api.category', 'uses'=>'Api\CategoryController@index']);
+    Route::get('/product', ['as'=>'api.product', 'uses'=>'Api\ProductController@index']);
+    Route::get('/deal', ['as'=>'api.deal', 'uses'=>'Api\ProductController@create']);
+    Route::get('/complaint', ['as'=>'api.complaint', 'uses'=>'Api\ProductController@show']);
+    Route::get('/favourite', ['as'=>'api.favourite', 'uses'=>'Api\ProductController@fav']);
+
 });

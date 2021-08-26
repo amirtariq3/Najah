@@ -30,47 +30,47 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="first-name-column">Name</label>
-                                    <input type="text" id="first-name-column" class="form-control"  name="name">
+                                    <input type="text" id="first-name-column" class="form-control"  name="name" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="first-name-column">Shop Name</label>
-                                    <input type="text" id="first-name-column" class="form-control"  name="shop_name">
+                                    <input type="text" id="first-name-column" class="form-control"  name="shop_name" required>
                                 </div>
                             </div>
                             
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="email-id-column">Email</label>
-                                    <input type="email" id="email-id-column" class="form-control" name="email">
+                                    <input type="email" id="email-id-column" class="form-control" name="email" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="email-id-column">Phone</label>
-                                    <input type="text" id="email-id-column" class="form-control" name="phone">
+                                    <input type="text" id="email-id-column" class="form-control" name="phone" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="email-id-column">City</label>
-                                    <input type="text" id="email-id-column" class="form-control" name="city">
+                                    <input type="text" id="email-id-column" class="form-control" name="city" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="email-id-column">Address</label>
-                                    <input type="text" id="email-id-column" class="form-control" name="address">
+                                    <input type="text" id="email-id-column" class="form-control" name="address" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="email-id-column">Password</label>
-                                    <input type="password" id="email-id-column" class="form-control" name="password">
+                                    <input type="password" id="email-id-column" class="form-control" name="password" required>
                                 </div>
                             </div>
                         </diV>

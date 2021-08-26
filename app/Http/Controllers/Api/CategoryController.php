@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
-use Hash;
+use App\Models\Category;
 
-class UserController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data=User::all();
-        return view('admin.user.list', ['data'=>$data]);
+        $data=Category::all();
+        return response()->json(['data'=>$data]);
     }
 
     /**
@@ -27,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.add');
+        //
     }
 
     /**
@@ -36,21 +35,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
-        //dd($r->all());
-        $data=User::create([
-
-            'name'=>$r->name,
-            'shop_name'=>$r->shop_name,
-            'email'=>$r->email,
-            'phone'=>$r->phone,
-            'city'=>$r->city,
-            'address'=>$r->address,
-            'password'=>Hash::make($r->password),
-            'status'=>$r->status??null
-        ]);
-        return redirect()->back()->withwith('success', 'User Created!');
+        //
     }
 
     /**
@@ -72,8 +59,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data=User::find($id);
-        return view('admin.user.update', ['data'=>$data]);
+        //
     }
 
     /**
@@ -83,18 +69,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $r, $id)
+    public function update(Request $request, $id)
     {
-        $data=User::find($id);
-        $data->name=$r->name??$data->name;
-        $data->shop_name=$r->shop_name??$data->shop_name;
-        $data->email=$r->email??$data->email;
-        $data->phone=$r->phone??$data->phone;
-        $data->city=$r->city??$data->city;
-        $data->address=$r->address??$data->address;
-        $data->status=$r->status??$data->status;
-        $data->save();
-        return redirect()->route('admin.user.index')->with('success', 'User Updated!');
+        //
     }
 
     /**

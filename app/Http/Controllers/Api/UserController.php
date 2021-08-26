@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Hash;
-
+use Auth;
 class UserController extends Controller
 {
     /**
@@ -16,8 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data=User::all();
-        return view('admin.user.list', ['data'=>$data]);
+        //
     }
 
     /**
@@ -27,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.add');
+        //
     }
 
     /**
@@ -38,7 +37,6 @@ class UserController extends Controller
      */
     public function store(Request $r)
     {
-        //dd($r->all());
         $data=User::create([
 
             'name'=>$r->name,
@@ -50,7 +48,17 @@ class UserController extends Controller
             'password'=>Hash::make($r->password),
             'status'=>$r->status??null
         ]);
-        return redirect()->back()->withwith('success', 'User Created!');
+        return response()->json(['message'=>'Congratulation User Register Successfully', 'data'=>$data]);
+    }
+
+    public function login(){
+        if(auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
+            $token=auth()->user()->createToken('MyApp')-> accessToken; 
+            return response()->json(['message'=>'user login successfully','data'=>auth()->user(),'token'=>$token], 200);
+        } 
+        else{ 
+            return response()->json(['error'=>'Unauthorised'], 401); 
+        } 
     }
 
     /**
@@ -59,9 +67,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        if (Auth::check()) {
+            $data=Auth()->user();
+        return response()->json(['data'=>$data], 200);
+        }
+        else
+        {
+            return response()->json(['error'=>'Unauthorised'], 401);
+        }
+        
     }
 
     /**
@@ -72,8 +88,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $data=User::find($id);
-        return view('admin.user.update', ['data'=>$data]);
+        //
     }
 
     /**
@@ -83,18 +98,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $r, $id)
+    public function update(Request $request, $id)
     {
-        $data=User::find($id);
-        $data->name=$r->name??$data->name;
-        $data->shop_name=$r->shop_name??$data->shop_name;
-        $data->email=$r->email??$data->email;
-        $data->phone=$r->phone??$data->phone;
-        $data->city=$r->city??$data->city;
-        $data->address=$r->address??$data->address;
-        $data->status=$r->status??$data->status;
-        $data->save();
-        return redirect()->route('admin.user.index')->with('success', 'User Updated!');
+        //
     }
 
     /**
@@ -106,5 +112,15 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function logout(Request $request)
+    {
+        
+            $token = $request->user()->token();
+            $token->revoke();
+            $response = ['message' => 'You have been successfully logged out!'];
+            return response($response, 200);
+        
     }
 }
