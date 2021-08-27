@@ -95,6 +95,7 @@ class DealController extends Controller
         $data->quantity=$r->quantity??$data->quantity;
         $data->image=($r->image)? $this->upload($r->image): $data->image;
         $data->name=$r->name??$data->name;
+        $data->status=$r->status??$data->status;
         $data->save();
         return redirect()->route('admin.deal.index')->with('success', 'Deal Updated!');
 

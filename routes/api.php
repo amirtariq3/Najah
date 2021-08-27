@@ -22,9 +22,14 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/logout', ['as'=>'api.logout', 'uses'=>'Api\Usercontroller@logout']);
     Route::get('/profile', ['as'=>'api.logout', 'uses'=>'Api\Usercontroller@show']);
     Route::get('/category', ['as'=>'api.category', 'uses'=>'Api\CategoryController@index']);
+    Route::get('/category/{id}', ['as'=>'api.category.product', 'uses'=>'Api\CategoryController@show']);
     Route::get('/product', ['as'=>'api.product', 'uses'=>'Api\ProductController@index']);
+    Route::get('/product_detail/{idd}', ['as'=>'api.product.detail', 'uses'=>'Api\ProductController@detail']);
     Route::get('/deal', ['as'=>'api.deal', 'uses'=>'Api\ProductController@create']);
     Route::get('/complaint', ['as'=>'api.complaint', 'uses'=>'Api\ProductController@show']);
-    Route::get('/favourite', ['as'=>'api.favourite', 'uses'=>'Api\ProductController@fav']);
+    Route::post('/complaint/create', ['as'=>'api.complaint.create', 'uses'=>'Api\ProductController@store']);
+
+    Route::get('/favourite', ['as'=>'api.favourite', 'uses'=>'Api\FavouriteController@index']);
+    Route::post('/favourite/create/{id}', ['as'=>'api.favourite.create', 'uses'=>'Api\FavouriteController@show']);
 
 });

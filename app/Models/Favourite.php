@@ -12,11 +12,11 @@ class Favourite extends Model
 
     public function user()
     {
-         return $this->belongTo('App\User');
+         return $this->belongsTo('App\User');
     }
 
     public function product()
     {
-        return $this->belongTo('App\Models\Product');
+        return $this->belongsTo('App\Models\Product');
     }
 }

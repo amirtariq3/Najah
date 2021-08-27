@@ -4,13 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Deal;
-use App\Models\Complaint;
 use App\Models\Favourite;
+use App\Models\Product;
 
-
-class ProductController extends Controller
+class FavouriteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +16,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data=Product::all()->where('status', 1);
-        return response()->json(['data'=>$data]);
+        $id=Auth()->user()->id;
+        $data=(Favourite::all()->where('user_id', $id))->toArray();
+        $i=0;
+        $p=[];
+      while($i<(sizeof($data))){
+           
+        $p[$i]=(Favourite::where('id',$data[$i]['id'])->first())->product;
+          $i++;
+      } 
+        return response()->json(['data'=>$p  ], 200);
     }
 
     /**
@@ -30,8 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data=Deal::all()->where('status', 1);
-        return response()->json(['data'=>$data], 200);
+        //
     }
 
     /**
@@ -40,16 +44,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request, $id)
     {
-        $id=Auth()->user()->id;
-        $data=Complaint::create([
-
-            'user_id'=> $id,
-            'complaint'=> $r->complaint
-
-        ]);
-        return response()->json(['message'=>'Complaint register successfully', 'data'=>$data], 200);
+        
     }
 
     /**
@@ -58,18 +55,16 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $id=Auth()->user()->id;
-        $data=Complaint::all()->where('user_id', $id);
-        return response()->json(['data'=>$data], 200);
-    }
-
-
-    public function detail($id)
-    {
-        $data=Product::all()->where('id',$id);
-        return response()->json(['data'=>$data], 200);
+        $user_id=auth()->user()->id;
+        $pro=Product::find($id);
+        $pro_id=$pro->id;
+        $data=new Favourite;
+        $data->user_id=$user_id;
+        $data->product_id=$pro_id;
+        $data->save();
+        return response()->json(['message'=>'product added to favourite','data'=>$data], 200);
     }
 
     /**

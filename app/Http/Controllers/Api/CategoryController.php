@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data=Category::all();
+        $data=Category::all()->where('status', 1);
         return response()->json(['data'=>$data]);
     }
 
@@ -48,7 +49,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $data=Product::where('category_id', $id)->get();
+        return response()->json(['data'=>$data], 200);
     }
 
     /**
