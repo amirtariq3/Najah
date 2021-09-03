@@ -24,7 +24,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/category', ['as'=>'api.category', 'uses'=>'Api\CategoryController@index']);
     Route::get('/category/{id}', ['as'=>'api.category.product', 'uses'=>'Api\CategoryController@show']);
     Route::get('/product', ['as'=>'api.product', 'uses'=>'Api\ProductController@index']);
-    Route::get('/product_detail/{idd}', ['as'=>'api.product.detail', 'uses'=>'Api\ProductController@detail']);
+    Route::get('/product_detail/{id}', ['as'=>'api.product.detail', 'uses'=>'Api\ProductController@detail']);
+    //routes for add product into cart
+    Route::post('/product_detail/add_cart/{id}', ['as'=>'add.cart', 'uses'=>'Api\CartController@store']);
+    Route::get('/delete_cart/{id}', ['as'=>'delete.cart', 'uses'=>'Api\CartController@destroy']);
+    Route::get('/cart_product', ['as'=>'get.cart', 'uses'=>'Api\CartController@show']);
+    Route::post('/place_order', ['as'=>'order', 'uses'=>'Api\OrderController@index']);
+
     Route::get('/deal', ['as'=>'api.deal', 'uses'=>'Api\ProductController@create']);
     Route::get('/complaint', ['as'=>'api.complaint', 'uses'=>'Api\ProductController@show']);
     Route::post('/complaint/create', ['as'=>'api.complaint.create', 'uses'=>'Api\ProductController@store']);

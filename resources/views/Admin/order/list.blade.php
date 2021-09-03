@@ -15,43 +15,32 @@
                 <div class="row">
                     <div class="card-body">
                         <div class="row">
-                            <h3>Product List</h3>
-                            <div class="btn">
-                                <a class="btn btn-primary pull-right" href="{{route('admin.product.create')}}" style="margin-left: 780px; margin-bottom:18px;">Add New</a>
-                                </div>
+                            <h3>All Orders</h3>
+                            
 
                             <table class="table table-striped data-table">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Category</th>
-                                        <th>Price</th>
-                                        <th>Image</th>
-                                        <th>Status</th>
-                                        <th width="100px">Action</th>
+                                        <th>Shop_Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        
+                                        <th width="100px">Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $i)
                                         <tr>
                                             <td>{{ $i->id }}</td>
-                                            <td>{{ $i->name }}</td>
-                                            <td>{{ $i->category->name }}</td>
-                                            <td>{{ $i->price }}</td>
-                                            <td><img src="{{asset('public/images/'.$i->image)}}" height="50" width="50"/></td>
-                                            
-                                            <td>
-                                                @if($i->status =='1')         
-                                                <span class="badge bg-success">Active</span>         
-                                                @else
-                                                <span class="badge bg-danger">Inactive</span>  
-                                                @endif  
-                                                </td>
-                                            <td>
+                                            <td>{{ $i->name}}</td>
+                                            <td>{{ $i->shop_name }}</td>
+                                            <td>{{ $i->email }}</td>
+                                            <td>{{ $i->phone }}</td>
                                 
-                                                <a  href="{{URL::to('')}}/admin/product/{{$i->id}}/edit"><i data-feather="edit" width="20"></i></a>
-                                                <a onclick="return confirm('Are you sure?')" href="{{route('admin.product.delete', [$i->id])}}"><i data-feather="trash-2" width="20"></i></a>
+                                            <td>
+                                                <a  href="{{route('admin.order_detail', [$i->id])}}"><i data-feather="edit" width="20"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -68,7 +57,6 @@
                                 'ordering': true,
                                 'searching': true,
                                 'select': true,
-                                
                                 
                             });
                         });

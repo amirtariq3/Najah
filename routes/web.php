@@ -31,19 +31,18 @@ Route::middleware('multiauth:admin')->group(function(){
     Route::get('/user/delete/{id}', ['as'=>'user.delete', 'uses'=>'Admin\UserController@destroy']);
     Route::get('/deal/delete/{id}', ['as'=>'deal.delete', 'uses'=>'Admin\DealController@destroy']);
     Route::get('/complaints', ['as'=>'complaint', 'uses'=>'Admin\ComplaintController@index']);
+    Route::get('/order_detail/{id}', ['as'=>'order_detail', 'uses'=>'Admin\OrderController@show']);
 
     Route::resource('/category', 'Admin\CateoryController');
     Route::resource('/product', 'Admin\ProductController');
     Route::resource('/user', 'Admin\UserController');
     Route::resource('/deal', 'Admin\DealController');
+    Route::resource('/order', 'Admin\OrderController');
     
   });
 });
 Route::get('/signup', ['as'=>'signup', 'uses'=>'admin\UserController@create']);
 Route::post('/signup', ['as'=>'signup', 'uses'=>'admin\UserController@store']);
-
-Route::get('/category/{id}', ['as'=>'category.product', 'uses'=>'Admin\ProductController@show']);
-Route::get('/product_detail/{id}', ['as'=>'product.detail', 'uses'=>'Admin\ProductDetailController@show']);
 
 
 

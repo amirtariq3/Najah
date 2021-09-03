@@ -33,7 +33,7 @@
                                     @foreach ($cat as $i)
                                         <tr>
                                             <td>{{ $i->id }}</td>
-                                            <td><a href="{{route('category.product', [$i->id])}}">{{ $i->name }}</a></td>
+                                            <td>{{ $i->name }}</td>
                                             
                                             <td>
                                                 @if($i->status =='1')         
